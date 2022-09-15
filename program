@@ -1,0 +1,88 @@
+nclude<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *next;
+};
+int main()
+{
+	struct node *start=NULL;
+	int n;
+	printf("Enter number of Elemnts to be inserted!!\n");
+	scanf("%d",&n);
+	int i,num;
+	printf("Enter a number !!\n");
+	for(i=1;i<=n;i++)
+	{
+		scanf("%d",&num);
+	start=insertbeg(start,num);	
+	}
+	printf("Enter a number to be inserted at end!!\n");
+	int numend;
+	scanf("%d",&numend);
+	start=insertend(start,numend);
+	int num2;
+	printf("Enter number to be inserted at a spot\n");
+	scanf("%d",&num2);
+	start=insertatspot(start,num2);
+	traversal(start);
+	
+}
+int insertbeg(struct node *start,int data)
+{
+	struct node ptr=(struct node)malloc(sizeof(struct node));
+	ptr->data=data;
+	ptr->next=start;
+	start=ptr;
+	return start;
+}
+int insertend(struct node *start,int data)
+{
+	struct node ptr=(struct node)malloc(sizeof(struct node));
+	ptr->next=NULL;
+	ptr->data=data;
+	struct node *temp;
+	temp=start;
+	while(temp->next!=NULL)
+	{
+		temp=temp->next;
+	}
+	temp->next=ptr;
+	return start;
+
+}
+int insertatspot(struct node *start,int data)
+{
+	struct node *temp;
+	struct node *pre;
+	temp=start;
+	pre=start;
+	struct node ptr=(struct node)malloc(sizeof(struct node));
+	ptr->data=data;
+	printf("Enter value after which you want to insert!!\n");
+	int a;
+	scanf("%d",&a);
+	while(temp->next!=NULL)
+	{
+		if(temp->data==a)
+		{
+			pre->next=ptr;
+
+			ptr->next=temp;
+		}
+		pre=temp;
+		temp=temp->next;
+	}
+	return start;	
+
+}
+void traversal(struct node *start)
+{
+	printf("The Final linked list is = \n");
+	while(start!=NULL)
+	{
+		printf("%d\n",start->data);
+		start=start->next;
+	}
+}
